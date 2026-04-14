@@ -1,0 +1,727 @@
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChargeDock – Turn Empty Space into Revenue</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+.font-brand { font-family: 'Nunito', sans-serif; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.text-gradient-subtle {
+  background: linear-gradient(to right, #1a1a1a, #4a4a4a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.badge-gradient-border {
+  background: linear-gradient(white, white) padding-box,
+  linear-gradient(to right, #FF7F50, #E0AC93, #4682B4, #1E3A8A) border-box;
+  border: 1.5px solid transparent;
+}
+.figma-grid-bg {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background-image:
+    linear-gradient(to right, rgba(12, 11, 7, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12, 11, 7, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: rotate(30deg);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none; z-index: 0;
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+.tech-card {
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tech-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+.beam-light {
+  background: radial-gradient(circle at center top, rgba(255, 255, 255, 0.15), transparent 70%);
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.tech-card:hover .beam-light { opacity: 1; }
+.tech-grid-overlay {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+  linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.reveal-word-inner {
+  display: inline-block;
+  transform: translateY(100%);
+}
+</style>
+</head>
+
+<body class="bg-[#F6F6F6] text-[#0C0B07] antialiased overflow-x-hidden">
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 z-[60] bg-white/90 backdrop-blur-sm translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="flex justify-end p-6">
+      <button id="mobile-menu-close" class="p-2 text-[#0C0B07] hover:text-[#EF5F3C] transition-colors rounded-full hover:bg-black/5">
+        <iconify-icon icon="solar:close-circle-linear" width="32" height="32"></iconify-icon>
+      </button>
+    </div>
+    <div class="flex-grow flex flex-col items-center justify-center gap-8 pb-20">
+      <nav class="flex flex-col items-center gap-6 text-center">
+        <a href="#problem" class="text-3xl font-medium text-[#0C0B07] hover:text-[#EF5F3C] transition-colors">Problem</a>
+        <a href="#solution" class="text-3xl font-medium text-[#0C0B07] hover:text-[#EF5F3C] transition-colors">Solution</a>
+        <a href="#value" class="text-3xl font-medium text-[#0C0B07] hover:text-[#EF5F3C] transition-colors">Value</a>
+        <a href="#revenue" class="text-3xl font-medium text-[#0C0B07] hover:text-[#EF5F3C] transition-colors">Revenue</a>
+        <a href="#contact" class="text-3xl font-medium text-[#0C0B07] hover:text-[#EF5F3C] transition-colors">Contact</a>
+      </nav>
+      <div class="h-px w-24 bg-[#0C0B07]/10 my-2"></div>
+      <a href="#contact" class="px-8 py-4 bg-[#0C0B07] text-white rounded-full text-lg font-medium hover:bg-black/80 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-2 group">
+        Get ChargeDock Free
+        <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+      </a>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out border-b border-transparent">
+    <div class="flex z-10 h-[90px] max-w-[1440px] mr-auto ml-auto pr-6 pl-6 relative items-center justify-between">
+      <a href="#" class="flex items-center gap-3" aria-label="ChargeDock Home">
+        <img src="iso.png" alt="ChargeDock Logo" class="h-10 w-auto rounded-lg object-cover">
+        <span class="text-2xl font-extrabold tracking-tight text-[#0C0B07] font-brand">ChargeDock</span>
+      </a>
+      <div class="hidden lg:flex items-center justify-center gap-6">
+        <a href="#problem" class="text-[15px] font-medium text-[#5E5E5E] hover:text-[#0C0B07] transition-colors">Problem</a>
+        <a href="#solution" class="text-[15px] font-medium text-[#5E5E5E] hover:text-[#0C0B07] transition-colors">Solution</a>
+        <a href="#value" class="text-[15px] font-medium text-[#5E5E5E] hover:text-[#0C0B07] transition-colors">Value</a>
+        <a href="#revenue" class="text-[15px] font-medium text-[#5E5E5E] hover:text-[#0C0B07] transition-colors">Revenue</a>
+        <a href="#contact" class="px-6 py-2.5 bg-[#0C0B07] text-white rounded-full text-[15px] font-medium hover:bg-black/80 transition-all shadow-lg shadow-black/5">
+          Get ChargeDock Free
+        </a>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden p-2 text-[#0C0B07] hover:bg-black/5 rounded-full transition-colors" aria-label="Open Menu">
+        <iconify-icon icon="solar:hamburger-menu-linear" width="28" height="28"></iconify-icon>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col relative overflow-hidden bg-[#F6F6F6] justify-center pt-24 lg:pt-0">
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div class="figma-grid-bg"></div>
+    </div>
+    <div class="hidden lg:block absolute top-0 right-0 w-1/2 h-full z-0">
+      <img src="image0.jpeg" alt="ChargeDock Station" class="h-full w-full object-contain object-center animate-float pr-12">
+    </div>
+    <div class="flex-grow flex flex-col w-full max-w-[1440px] z-10 mr-auto ml-auto pt-12 pr-6 pb-12 pl-6 relative justify-center">
+      <div class="grid lg:grid-cols-2 gap-12 gap-x-12 gap-y-12 items-center lg:pt-[120px]">
+        <div class="flex flex-col items-start max-w-2xl reveal-section">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-gradient-border bg-white/50 backdrop-blur-sm mb-8 shadow-sm">
+            <iconify-icon icon="solar:bolt-linear" class="text-orange-500"></iconify-icon>
+            <span class="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
+              Free Installation · 50% Revenue Share
+            </span>
+          </div>
+          <h1 class="sm:text-7xl lg:text-[5rem] leading-[0.95] text-6xl font-extrabold text-[#0C0B07] tracking-tight mb-8 font-brand">
+            Turn Empty<br>
+            <span class="text-[#EF5F3C]">Space into</span><br>
+            Revenue
+          </h1>
+          <p class="text-xl sm:text-2xl text-[#5E5E5E] font-normal leading-relaxed mb-12 max-w-xl">
+            ChargeDock provides free-to-install charging stations that help your venue increase foot traffic, improve customer convenience, and generate additional revenue.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <a href="#contact" class="px-8 py-4 bg-[#0C0B07] text-white rounded-full font-medium text-lg hover:bg-black/80 transition-all shadow-xl shadow-black/10 flex items-center justify-center gap-2 group whitespace-nowrap">
+              Get ChargeDock Free
+              <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+            </a>
+            <a href="#solution" class="px-8 py-4 bg-white text-[#0C0B07] border border-[#0C0B07]/10 rounded-full font-medium text-lg hover:bg-[#fafafa] transition-all flex items-center justify-center gap-2 group whitespace-nowrap">
+              How It Works
+            </a>
+          </div>
+        </div>
+        <div class="lg:hidden w-full relative h-[400px] rounded-2xl overflow-hidden reveal-visual flex justify-center">
+          <img src="image0.jpeg" alt="ChargeDock Station" class="h-full object-contain animate-float">
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 w-full md:pt-16 gap-x-4 gap-y-4 items-center justify-center lg:justify-start">
+        <div class="group flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-[#0C0B07]/5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] hover:border-[#0C0B07]/10 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-default">
+          <iconify-icon icon="solar:wallet-money-linear" class="text-orange-500 text-lg group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+          <span class="text-[#5E5E5E] text-sm font-medium">50% Revenue Share</span>
+        </div>
+        <div class="group flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-[#0C0B07]/5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] hover:border-[#0C0B07]/10 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-default">
+          <iconify-icon icon="solar:users-group-rounded-linear" class="text-orange-500 text-lg group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+          <span class="text-[#5E5E5E] text-sm font-medium">Increase Foot Traffic</span>
+        </div>
+        <div class="group flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-[#0C0B07]/5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] hover:border-[#0C0B07]/10 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-default">
+          <iconify-icon icon="solar:chart-2-linear" class="text-orange-500 text-lg group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+          <span class="text-[#5E5E5E] text-sm font-medium">Extra Ad Income</span>
+        </div>
+        <div class="group flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white border border-[#0C0B07]/5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] hover:border-[#0C0B07]/10 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-default">
+          <iconify-icon icon="solar:check-circle-linear" class="text-orange-500 text-lg group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+          <span class="text-[#5E5E5E] text-sm font-medium">Zero Operational Burden</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section id="problem" class="overflow-hidden text-white bg-black pt-24 pb-24 relative">
+    <div class="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+      <img src="pub.webp" alt="Venue Background" class="w-full h-full object-cover opacity-30">
+      <div class="absolute inset-0 bg-[#0C0B07]/80 z-[1]"></div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div>
+          <span class="text-stone-300 text-sm tracking-wide uppercase">[01] The Problem</span>
+          <h2 class="text-4xl md:text-5xl tracking-tight mt-4 reveal-text font-extrabold font-brand">Customers Run Out of Battery.<br>You Lose Business.</h2>
+        </div>
+        <p class="text-stone-300 max-w-md font-light text-lg pb-2 text-right md:text-left reveal-text">
+          Modern customers rely heavily on smartphones, wireless earphones, and mobile devices. When batteries die, everyone suffers.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[280px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:battery-low-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Devices Die Fast</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Phones, earphones, and tablets frequently run out of battery during visits.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[280px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:shop-2-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Staff Burden</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Stores are burdened with lending chargers and managing lost cables.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[280px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:walking-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Customers Leave</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Low battery means customers cut their visit short and take their spending elsewhere.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[280px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:money-bag-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">No Revenue Share</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Existing solutions solve the problem but give nothing back to the venue.</p>
+        </div>
+      </div>
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/10 pt-10">
+        <div class="flex items-center gap-4">
+          <iconify-icon icon="solar:trend-up-linear" class="text-[#EF5F3C] text-2xl"></iconify-icon>
+          <span class="text-stone-300 font-light">Rising inflation & operational costs</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <iconify-icon icon="solar:users-group-two-rounded-linear" class="text-[#EF5F3C] text-2xl"></iconify-icon>
+          <span class="text-stone-300 font-light">Higher customer expectations</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <iconify-icon icon="solar:smartphone-linear" class="text-[#EF5F3C] text-2xl"></iconify-icon>
+          <span class="text-stone-300 font-light">Growing dependency on mobile devices</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section id="solution" class="overflow-hidden text-[#0C0B07] bg-[#F6F6F6] z-20 pt-24 pb-24 relative">
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div class="figma-grid-bg"></div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col gap-6">
+      <div>
+        <span class="uppercase block text-sm text-[#EF5F3C] tracking-wide mb-4">[02] Our Solution</span>
+        <h2 class="md:text-6xl leading-[1.1] text-5xl tracking-tight max-w-3xl reveal-text font-semibold text-[#0C0B07]">
+          A Fully Automated Battery Rental Station
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
+        <div class="order-2 lg:order-1 space-y-8">
+          <div class="flex gap-6 items-start group cursor-default">
+            <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0C0B07] text-white flex items-center justify-center text-xl font-bold group-hover:bg-[#EF5F3C] transition-colors">1</div>
+            <div>
+              <h3 class="text-2xl font-medium text-[#0C0B07] mb-2">We Install for Free</h3>
+              <p class="text-[#5E5E5E] font-light leading-relaxed max-w-md">No upfront cost, no hidden fees. Our team places a sleek charging station in your venue.</p>
+            </div>
+          </div>
+          <div class="flex gap-6 items-start group cursor-default">
+            <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0C0B07] text-white flex items-center justify-center text-xl font-bold group-hover:bg-[#EF5F3C] transition-colors">2</div>
+            <div>
+              <h3 class="text-2xl font-medium text-[#0C0B07] mb-2">Customers Rent Batteries</h3>
+              <p class="text-[#5E5E5E] font-light leading-relaxed max-w-md">Guests scan, grab a portable powerbank, and keep their devices charged at their table.</p>
+            </div>
+          </div>
+          <div class="flex gap-6 items-start group cursor-default">
+            <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0C0B07] text-white flex items-center justify-center text-xl font-bold group-hover:bg-[#EF5F3C] transition-colors">3</div>
+            <div>
+              <h3 class="text-2xl font-medium text-[#0C0B07] mb-2">You Earn Revenue + Ads</h3>
+              <p class="text-[#5E5E5E] font-light leading-relaxed max-w-md">Receive 50% of all rental transactions from your station. Plus, display ads for extra income.</p>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 relative group reveal-visual">
+          <div class="aspect-square overflow-hidden rounded-2xl border border-[#0C0B07]/10 shadow-2xl bg-white">
+            <img src="image1.jpeg" alt="ChargeDock Powerbank" class="w-full h-full object-contain hover:scale-105 transition-transform duration-700 p-8">
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-white border border-[#0C0B07]/10 rounded-xl p-4 shadow-xl hidden md:block">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center">
+                <iconify-icon icon="solar:check-circle-linear" width="20"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[#0C0B07]">Fully Automated</p>
+                <p class="text-xs text-[#5E5E5E]">No staff required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Section -->
+  <section id="value" class="bg-black text-white py-24 relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div>
+          <span class="text-white text-sm uppercase tracking-wide font-medium mb-6 block">[03] Value We Create</span>
+          <h2 class="text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] mb-4 reveal-text font-brand">
+            More Than<br><span class="text-[#EF5F3C]">Just Charging</span>
+          </h2>
+        </div>
+        <p class="text-lg text-stone-400 leading-relaxed max-w-md font-light reveal-text">
+          ChargeDock turns a simple utility into a powerful business advantage for your venue.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:wallet-money-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">50% Revenue Share</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Turn a simple utility into a consistent income stream shared directly with your business.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:users-group-rounded-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Increased Foot Traffic</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Battery needs create a strong reason for students, tourists, and delivery drivers to visit.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:smile-circle-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Better Experience</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Customers stay connected and stress-free, improving satisfaction and store reviews.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:clock-circle-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">No Impact on Operations</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Does not affect store turnover, table rotation, or staff efficiency in any way.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:check-circle-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Zero Operational Burden</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">Fully automated system. No staff involvement, no maintenance, no management required.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden min-h-[260px] flex flex-col p-8 cursor-default">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/5 rounded-lg text-white mb-6">
+            <iconify-icon icon="solar:monitor-linear" width="24"></iconify-icon>
+          </div>
+          <h3 class="text-xl font-medium text-white mb-2">Ad Display Income</h3>
+          <p class="text-sm text-stone-300 leading-relaxed font-light">External ads on your screen generate ~$200/month in extra passive income.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revenue Model Section -->
+  <section id="revenue" class="overflow-hidden text-[#0C0B07] bg-[#F6F6F6] z-20 pt-24 pb-24 relative">
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div class="figma-grid-bg"></div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="uppercase block text-sm text-[#EF5F3C] tracking-wide mb-4">[04] Revenue Model</span>
+          <h2 class="md:text-6xl leading-[1.1] text-5xl tracking-tight max-w-2xl reveal-text font-extrabold text-[#0C0B07] font-brand mb-8">
+            50% Revenue Share, Transparent & Direct
+          </h2>
+          <p class="text-lg text-[#5E5E5E] font-light leading-relaxed max-w-lg mb-8">
+            Each station installed in your venue generates revenue, and 50% of all transactions from that specific station is shared directly with your business.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-4">
+              <div class="w-8 h-8 rounded-full bg-[#0C0B07] text-white flex items-center justify-center text-sm font-bold">✓</div>
+              <span class="text-[#0C0B07] font-medium">Clear ownership of revenue</span>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="w-8 h-8 rounded-full bg-[#0C0B07] text-white flex items-center justify-center text-sm font-bold">✓</div>
+              <span class="text-[#0C0B07] font-medium">Transparent earnings tracking</span>
+            </li>
+            <li class="flex items-center gap-4">
+              <div class="w-8 h-8 rounded-full bg-[#0C0B07] text-white flex items-center justify-center text-sm font-bold">✓</div>
+              <span class="text-[#0C0B07] font-medium">Direct benefit from your location's performance</span>
+            </li>
+          </ul>
+        </div>
+        <div class="relative reveal-visual">
+          <div class="bg-white border border-[#0C0B07]/10 rounded-3xl p-10 shadow-2xl text-center">
+            <p class="text-sm uppercase tracking-wide text-[#5E5E5E] font-medium mb-4">Potential Annual Earnings</p>
+            <div class="text-7xl md:text-8xl font-bold text-[#0C0B07] tracking-tight mb-2">$6,480</div>
+            <p class="text-[#5E5E5E] font-light mb-8">per station / year (including tax)</p>
+            <div class="h-px bg-[#0C0B07]/10 my-6"></div>
+            <div class="flex justify-center gap-8">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-[#EF5F3C]">50%</div>
+                <div class="text-xs text-[#5E5E5E] uppercase tracking-wide mt-1">Your Share</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-[#0C0B07]">$0</div>
+                <div class="text-xs text-[#5E5E5E] uppercase tracking-wide mt-1">Install Cost</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-[#0C0B07]">~$3</div>
+                <div class="text-xs text-[#5E5E5E] uppercase tracking-wide mt-1">Electricity / mo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="bg-black text-white py-24 relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-white text-sm uppercase tracking-wide font-medium mb-6 block">[05] User Pricing</span>
+        <h2 class="text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] mb-6 reveal-text">
+          Simple, Fair Pricing
+        </h2>
+        <p class="text-lg text-stone-400 leading-relaxed font-light reveal-text">
+          Customers pay only for what they use. Subscription plans make it even more attractive.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden flex flex-col p-8 cursor-default text-center">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <h3 class="text-lg font-medium text-stone-300 mb-4">Pay Per Use</h3>
+          <div class="text-4xl font-bold text-white mb-2">$6<span class="text-lg font-normal text-stone-400">/hour</span></div>
+          <p class="text-sm text-stone-400 mb-6">$24 max per day</p>
+          <p class="text-xs text-stone-500">Perfect for occasional users who need a quick top-up.</p>
+        </div>
+        <div class="group tech-card relative border border-[#EF5F3C]/30 rounded-xl overflow-hidden flex flex-col p-8 cursor-default text-center">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <div class="px-3 py-1 bg-[#EF5F3C]/10 text-[#EF5F3C] text-xs font-medium rounded-full inline-block self-center mb-4">Popular</div>
+          <h3 class="text-lg font-medium text-stone-300 mb-4">Weekly Plan</h3>
+          <div class="text-4xl font-bold text-white mb-2">$9.90<span class="text-lg font-normal text-stone-400">/week</span></div>
+          <p class="text-sm text-stone-400 mb-6">Unlimited use</p>
+          <p class="text-xs text-stone-500">Best value for regular commuters and students.</p>
+        </div>
+        <div class="group tech-card relative border border-white/10 rounded-xl overflow-hidden flex flex-col p-8 cursor-default text-center">
+          <div class="absolute top-0 inset-x-0 h-40 beam-light w-full pointer-events-none -z-10"></div>
+          <div class="absolute inset-0 tech-grid-overlay opacity-50 pointer-events-none"></div>
+          <h3 class="text-lg font-medium text-stone-300 mb-4">Premium</h3>
+          <div class="text-4xl font-bold text-white mb-2">$15<span class="text-lg font-normal text-stone-400">/week</span></div>
+          <p class="text-sm text-stone-400 mb-6">Shareable between 2 users</p>
+          <p class="text-xs text-stone-500">Ideal for couples, friends, or coworking groups.</p>
+        </div>
+      </div>
+      <p class="text-center text-xs text-stone-500 mt-8">※ Additional fees apply if powerbank is not returned.</p>
+    </div>
+  </section>
+
+  <!-- Advertising Section -->
+  <section class="overflow-hidden text-[#0C0B07] bg-[#F6F6F6] z-20 pt-24 pb-24 relative">
+    <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div class="figma-grid-bg"></div>
+    </div>
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative reveal-visual">
+          <div class="aspect-[4/3] overflow-hidden rounded-2xl border border-[#0C0B07]/10 shadow-2xl bg-white">
+            <img src="image0.jpeg" alt="ChargeDock Screen Ads" class="w-full h-full object-contain hover:scale-105 transition-transform duration-700 p-6">
+          </div>
+          <div class="absolute -top-6 -right-6 bg-[#0C0B07] text-white rounded-xl p-4 shadow-xl hidden md:block">
+            <p class="text-2xl font-bold">~$200</p>
+            <p class="text-xs text-stone-300">extra / month</p>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="uppercase block text-sm text-[#EF5F3C] tracking-wide mb-4">[06] Advertising</span>
+          <h2 class="md:text-5xl leading-[1.1] text-4xl tracking-tight max-w-2xl reveal-text font-extrabold text-[#0C0B07] font-brand mb-6">
+            Real-World Exposure Beyond Algorithms
+          </h2>
+          <p class="text-lg text-[#5E5E5E] font-light leading-relaxed max-w-lg mb-6">
+            Most digital ads today are controlled by algorithms — showing users only what they already like or search for.
+          </p>
+          <p class="text-lg text-[#0C0B07] font-medium leading-relaxed max-w-lg mb-8">
+            ChargeDock is different. Our in-store screens create real-world exposure, introducing customers to new products, brands, and experiences they weren't actively looking for.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full bg-white border border-[#0C0B07]/10 text-sm font-medium text-[#5E5E5E]">Free in-store promotion</span>
+            <span class="px-4 py-2 rounded-full bg-white border border-[#0C0B07]/10 text-sm font-medium text-[#5E5E5E]">External ad income</span>
+            <span class="px-4 py-2 rounded-full bg-white border border-[#0C0B07]/10 text-sm font-medium text-[#5E5E5E]">Cross-venue visibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Positioning / Benefits / Target Audience -->
+  <section class="bg-black text-white py-24 relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <span class="text-white text-sm uppercase tracking-wide font-medium mb-6 block">[07] Store Benefits</span>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.05] mb-8 reveal-text font-brand">
+            Why Venues Love ChargeDock
+          </h2>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EF5F3C] flex-shrink-0">
+                <iconify-icon icon="solar:dollar-minimalistic-linear" width="20"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-lg font-medium text-white">No Installation or Management Cost</h4>
+                <p class="text-sm text-stone-400 font-light">Completely free to install and maintain.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EF5F3C] flex-shrink-0">
+                <iconify-icon icon="solar:plug-circle-linear" width="20"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-lg font-medium text-white">Minimal Electricity Cost</h4>
+                <p class="text-sm text-stone-400 font-light">Only ~$2–3 per month to keep running.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EF5F3C] flex-shrink-0">
+                <iconify-icon icon="solar:star-linear" width="20"></iconify-icon>
+              </div>
+              <div>
+                <h4 class="text-lg font-medium text-white">Better Reviews & Differentiation</h4>
+                <p class="text-sm text-stone-400 font-light">Stand out from competitors with a modern amenity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="text-white text-sm uppercase tracking-wide font-medium mb-6 block">[08] Positioning</span>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.05] mb-8 reveal-text font-brand">
+            We Focus on Everyday Locations
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:cup-hot-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Cafes</h4>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:chef-hat-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Restaurants</h4>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:shop-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Convenience Stores</h4>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:bag-4-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Retail Shops</h4>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:glass-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Pubs & Bars</h4>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <iconify-icon icon="solar:confetti-linear" class="text-[#EF5F3C] text-2xl mb-3"></iconify-icon>
+              <h4 class="text-lg font-medium text-white">Event Venues</h4>
+            </div>
+          </div>
+          <p class="text-stone-400 font-light text-sm">
+            While most competitors focus only on bars, pubs, and casinos, ChargeDock is designed for the everyday locations where people actually spend their time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / CTA -->
+  <section id="contact" class="relative bg-gradient-to-b from-[#F8F7F4] to-[#FFE8E0] text-[#0C0B07] pt-24 pb-12 overflow-hidden border-t border-stone-200">
+    <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-8">
+          <span class="text-[#5E5E5E] text-sm uppercase tracking-wide mb-8 block font-medium">[09] Get Started</span>
+          <h2 class="text-5xl lg:text-6xl leading-[1.05] tracking-tight font-extrabold mb-8 reveal-text text-[#0C0B07] font-brand">
+            A Zero-Risk Device That Generates Traffic and Revenue Automatically.
+          </h2>
+          <p class="text-xl text-[#5E5E5E] font-light mb-10 max-w-2xl">
+            No cost. No effort. Just profit. Join hundreds of venues already turning empty space into a new revenue stream.
+          </p>
+          <a href="mailto:hello@chargedock.com" class="inline-flex items-center gap-2 px-8 py-4 bg-[#0C0B07] text-white rounded-full font-medium text-lg hover:bg-black/80 transition-all shadow-xl shadow-black/5 group w-fit">
+            Get ChargeDock Free
+            <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+          </a>
+        </div>
+        <div class="lg:col-span-4 flex flex-col justify-end">
+          <div class="bg-white/60 backdrop-blur-sm border border-stone-200 rounded-2xl p-6">
+            <h4 class="font-semibold text-[#0C0B07] mb-4">Contact</h4>
+            <ul class="space-y-3 text-stone-600 text-sm">
+              <li class="flex items-center gap-2">
+                <iconify-icon icon="solar:letter-linear" width="16"></iconify-icon>
+                <a href="mailto:hello@chargedock.com" class="hover:text-[#EF5F3C] transition-colors">hello@chargedock.com</a>
+              </li>
+              <li class="flex items-center gap-2">
+                <iconify-icon icon="solar:map-point-linear" width="16"></iconify-icon>
+                <span>Available in your city</span>
+              </li>
+            </ul>
+            <div class="flex gap-4 mt-6">
+              <a href="#" class="w-10 h-10 rounded-full bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:text-[#EF5F3C] hover:border-[#EF5F3C]/30 transition-all">
+                <iconify-icon icon="simple-icons:instagram" width="18"></iconify-icon>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:text-[#EF5F3C] hover:border-[#EF5F3C]/30 transition-all">
+                <iconify-icon icon="simple-icons:linkedin" width="18"></iconify-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-stone-300/50 flex flex-col sm:flex-row justify-between items-center text-stone-500 text-sm">
+        <p>ChargeDock © <span id="year"></span> — Turn Empty Space into Revenue</p>
+        <div class="flex gap-6 mt-4 sm:mt-0">
+          <a href="#" class="hover:text-black transition-colors">Privacy</a>
+          <a href="#" class="hover:text-black transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", (event) => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Mobile Menu
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const closeBtn = document.getElementById('mobile-menu-close');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      function toggleMenu() {
+        const isClosed = overlay.classList.contains('translate-x-full');
+        if (isClosed) {
+          overlay.classList.remove('translate-x-full');
+          document.body.classList.add('overflow-hidden');
+        } else {
+          overlay.classList.add('translate-x-full');
+          document.body.classList.remove('overflow-hidden');
+        }
+      }
+      if (menuBtn && closeBtn && overlay) {
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+      }
+
+      // Dynamic year
+      const yearSpan = document.getElementById('year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      // Navbar blur
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('bg-white/90', 'backdrop-blur-md');
+          navbar.classList.remove('bg-transparent');
+        } else {
+          navbar.classList.remove('bg-white/90', 'backdrop-blur-md');
+          navbar.classList.add('bg-transparent');
+        }
+      });
+
+      // Reveal text animations
+      const splitTextToSpans = (element) => {
+        const text = element.innerText;
+        const words = text.split(' ');
+        const newContent = words.map(word => {
+          return `<span class="inline-block overflow-hidden align-top leading-tight"><span class="inline-block translate-y-full reveal-word-inner">${word}&nbsp;</span></span>`;
+        }).join('');
+        element.innerHTML = newContent;
+      };
+
+      document.querySelectorAll('.reveal-text').forEach(el => {
+        splitTextToSpans(el);
+        gsap.to(el.querySelectorAll('.reveal-word-inner'), {
+          y: 0,
+          duration: 0.8,
+          stagger: 0.03,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+
+      gsap.utils.toArray('.reveal-visual').forEach(visual => {
+        gsap.from(visual, {
+          scrollTrigger: { trigger: visual, start: "top 80%" },
+          scale: 0.95, opacity: 0, duration: 1.2, ease: "power2.out"
+        });
+      });
+
+      gsap.utils.toArray('.reveal-section').forEach(section => {
+        gsap.from(section.children, {
+          scrollTrigger: { trigger: section, start: "top 80%" },
+          y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out"
+        });
+      });
+    });
+  </script>
+</body>
+</html>
