@@ -653,8 +653,8 @@ body { font-family: 'Inter', sans-serif; }
   <!-- Scripts -->
   <script type="module">
     document.addEventListener("DOMContentLoaded", (event) => {
-      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
       // Mobile Menu
       const menuBtn = document.getElementById('mobile-menu-btn');
