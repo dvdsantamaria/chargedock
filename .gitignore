@@ -1,0 +1,12 @@
+# Node
+node_modules/
+package-lock.json
+package.json
+
+# PDF generation artifacts (Node scripts)
+generate-pdf.js
+deck.html
+chargedock-sales-deck.pdf
+pdf-deck-prompt.md
+sales-deck-prompt.md
+\n!assets/chargedock-sales-deck.pdf
