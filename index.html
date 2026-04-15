@@ -672,6 +672,12 @@ body { font-family: 'Inter', sans-serif; }
       if (menuBtn && closeBtn && overlay) {
         menuBtn.addEventListener('click', toggleMenu);
         closeBtn.addEventListener('click', toggleMenu);
+        overlay.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            overlay.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+          });
+        });
       }
 
       // Dynamic year
