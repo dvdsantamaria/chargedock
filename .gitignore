@@ -3,10 +3,10 @@ node_modules/
 package-lock.json
 package.json
 
-# PDF generation artifacts (Node scripts)
-generate-pdf.js
-deck.html
-chargedock-sales-deck.pdf
+# PDF generation artifacts (root only)
+/chargedock-sales-deck.pdf
+/generate-pdf.js
+/deck.html
+
 pdf-deck-prompt.md
 sales-deck-prompt.md
-\n!assets/chargedock-sales-deck.pdf

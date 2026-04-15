@@ -654,7 +654,6 @@ body { font-family: 'Inter', sans-serif; }
   <script type="module">
     document.addEventListener("DOMContentLoaded", (event) => {
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      window.scrollTo(0, 0);
       gsap.registerPlugin(ScrollTrigger);
 
       // Mobile Menu
@@ -738,7 +737,6 @@ body { font-family: 'Inter', sans-serif; }
       });
 
       window.addEventListener('load', () => {
-        window.scrollTo(0, 0);
         ScrollTrigger.refresh();
       });
     });
